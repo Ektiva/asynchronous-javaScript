@@ -1,26 +1,33 @@
 console.log("Hello")
 
-// Fetch a random cat fact
-/* let url = "https://cat-fact.herokuapp.com/facts/random"
+let url = "https://cat-fact.herokuapp.com/facts/random"
 
-//
+
+//Promise with Fetch
 function getData(url){
-    fetch(url, {
+    return fetch(url, {
         method: "GET",
         headers: {
             "Accept": "application/json",
         }
         })
         .then(resp => resp.json())
-        .then(resp => console.log(resp))
+        .then(resp => displayData(resp))
         .catch(error => console.log(error));
-    return data;
 }
 
-// getData(url);*/
+function displayData(data){
+    let dataText = data["text"];
+    let label = document.createElement("p");
+    label.textContent = "Cat facts:";
+    label.style.fontHeight = "bold";
+    let temp = document.createElement("p");
+    temp.textContent  = dataText;
 
-//To Find: How to create a Promise with find Fetch
+    document.body.append(label, temp);
+}
 
+getData(url);
 
 // Await and Fetch
 const data = async () => {
@@ -32,21 +39,19 @@ const data = async () => {
         }
     })
     
-    let name = await result.json();
-   // console.log( name)
+   let name = await result.json();
+   console.log( name)
     return name;
 }
- // data();
 
-  let button = document.querySelector("#button");
-  button.addEventListener("click", awaitCatData ) ;
+let button1 = document.querySelector("#button1");
+button1.addEventListener("click", awaitCatData ) ;
 
  async function awaitCatData()
  {
     let mydata = await data();
-
-   // console.log("Cat Data: ", data1["text"]);
-    let theCat = document.querySelector("#cat");
+    console.log("Cat Data: ", mydata["text"]);
+    let theCat = document.querySelector("#cat1");
     theCat.innerHTML =  mydata["text"] ;
     
  }
